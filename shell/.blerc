@@ -5,7 +5,14 @@ if [[ -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
   ble/path#remove-glob PATH '/mnt/*'
 fi
 
-# fzf integration
+# fzf integration (detect install location)
+if [[ -d "$HOME/.fzf" ]]; then
+  # Local install (git clone)
+  _ble_contrib_fzf_base="$HOME/.fzf"
+elif [[ -f /usr/bin/fzf ]]; then
+  # System install (apt)
+  _ble_contrib_fzf_base=/usr
+fi
 ble-import -d integration/fzf-completion
 ble-import -d integration/fzf-key-bindings
 
@@ -18,5 +25,8 @@ bleopt exec_elapsed_enabled='sys+usr>=5000'
 # EOF marker
 bleopt prompt_eol_mark='⏎'
 
-# Nerd Font glyph width (use 'west' if icons cause misalignment)
+# Transient prompt (explicit, don't rely on oh-my-posh init)
+bleopt prompt_ps1_transient=always
+
+# Nerd Font glyph width (uncomment if icons cause misalignment)
 # bleopt char_width_mode='west'
