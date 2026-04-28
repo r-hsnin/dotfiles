@@ -2,12 +2,18 @@ FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
 ARG USERNAME=vscode
 
-# --- System packages ---
+# --- System packages + ble.sh build (single layer, remove build deps after) ---
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ripgrep fd-find bat fzf jq tree tmux curl unzip \
-    build-essential \
+    build-essential gawk \
     && ln -sf /usr/bin/batcat /usr/local/bin/bat \
     && ln -sf /usr/bin/fdfind /usr/local/bin/fd \
+    # ble.sh (build then remove build deps)
+    && git clone --recursive --depth 1 https://github.com/akinomyoga/ble.sh.git /tmp/ble.sh \
+    && make -C /tmp/ble.sh install PREFIX=/home/${USERNAME}/.local \
+    && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.local \
+    && rm -rf /tmp/ble.sh \
+    && apt-get purge -y build-essential gawk && apt-get autoremove -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # --- GitHub release binaries (single layer) ---
@@ -29,7 +35,7 @@ RUN set -eux \
     && curl -fsSL "https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_linux_x86_64.tar.gz" \
        | tar xz -C /usr/local/bin/ lazygit \
     # micro
-    && curl -fsSL https://getmic.ro | bash && mv micro /usr/local/bin/ \
+    && cd /tmp && curl -fsSL https://getmic.ro | bash && mv /tmp/micro /usr/local/bin/ && cd / \
     # yazi
     && YAZI_VERSION=$(curl -s https://api.github.com/repos/sxyazi/yazi/releases/latest | jq -r '.tag_name') \
     && curl -fsSL "https://github.com/sxyazi/yazi/releases/download/${YAZI_VERSION}/yazi-x86_64-unknown-linux-gnu.zip" \
@@ -46,12 +52,6 @@ RUN set -eux \
     && LEFTHOOK_VERSION=$(curl -s https://api.github.com/repos/evilmartians/lefthook/releases/latest | jq -r '.tag_name' | sed 's/v//') \
     && curl -fsSL "https://github.com/evilmartians/lefthook/releases/download/v${LEFTHOOK_VERSION}/lefthook_${LEFTHOOK_VERSION}_Linux_x86_64" \
        -o /usr/local/bin/lefthook && chmod +x /usr/local/bin/lefthook
-
-# --- ble.sh (pre-built for fast shell startup) ---
-RUN git clone --recursive --depth 1 https://github.com/akinomyoga/ble.sh.git /tmp/ble.sh \
-    && make -C /tmp/ble.sh install PREFIX=/home/${USERNAME}/.local \
-    && chown -R ${USERNAME}:${USERNAME} /home/${USERNAME}/.local \
-    && rm -rf /tmp/ble.sh
 
 # --- User-level tools ---
 USER ${USERNAME}
