@@ -1,0 +1,30 @@
+{
+  "name": "code-reviewer",
+  "description": "コードレビュー専用。変更の品質・セキュリティを検査する",
+  "prompt": "file://./code-reviewer.prompt.md",
+  "tools": [
+    "read",
+    "grep",
+    "glob",
+    "shell"
+  ],
+  "allowedTools": [
+    "read",
+    "grep",
+    "glob"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "autoAllowReadonly": true,
+      "denyByDefault": true
+    }
+  },
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "file://~/.kiro/steering/**/*.md",
+    "file://README.md",
+    "file://AGENTS.md",
+    "skill://.kiro/skills/**/SKILL.md",
+    "skill://~/.kiro/skills/**/SKILL.md"
+  ]
+}

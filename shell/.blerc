@@ -1,0 +1,22 @@
+# ble.sh configuration
+
+# WSL2: Remove slow /mnt/* paths from PATH for completion
+if [[ -f /proc/sys/fs/binfmt_misc/WSLInterop ]]; then
+  ble/path#remove-glob PATH '/mnt/*'
+fi
+
+# fzf integration
+ble-import -d integration/fzf-completion
+ble-import -d integration/fzf-key-bindings
+
+# Auto-complete delay (ms)
+bleopt complete_auto_delay=300
+
+# Elapsed time marker (show for commands taking 5s+)
+bleopt exec_elapsed_enabled='sys+usr>=5000'
+
+# EOF marker
+bleopt prompt_eol_mark='⏎'
+
+# Nerd Font glyph width (use 'west' if icons cause misalignment)
+# bleopt char_width_mode='west'

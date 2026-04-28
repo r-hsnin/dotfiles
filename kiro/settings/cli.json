@@ -1,0 +1,19 @@
+{
+  "chat.defaultModel": "claude-opus-4.6",
+  "chat.enableThinking": true,
+  "chat.enableKnowledge": true,
+  "chat.enableTodoList": true,
+  "chat.enableCheckpoint": false,
+  "chat.enableSubagent": true,
+  "chat.enableDelegate": true,
+  "chat.enableTangentMode": true,
+  "chat.enableCodeIntelligence": true,
+  "chat.enableContextUsageIndicator": true,
+  "chat.enableNotifications": true,
+  "chat.greeting.enabled": false,
+  "chat.disableAutoCompaction": false,
+  "knowledge.indexType": "semantic",
+  "telemetry.enabled": false,
+  "chat.defaultAgent": "developer",
+  "mcp.loadedBefore": true
+}

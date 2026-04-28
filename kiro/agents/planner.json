@@ -1,0 +1,30 @@
+{
+  "name": "planner",
+  "description": "設計・実装計画専用。コードベースを分析し、実装計画を作成する",
+  "prompt": "file://./planner.prompt.md",
+  "tools": [
+    "read",
+    "grep",
+    "glob",
+    "shell"
+  ],
+  "allowedTools": [
+    "read",
+    "grep",
+    "glob"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "autoAllowReadonly": true,
+      "denyByDefault": true
+    }
+  },
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "file://~/.kiro/steering/**/*.md",
+    "file://README.md",
+    "file://AGENTS.md",
+    "skill://.kiro/skills/**/SKILL.md",
+    "skill://~/.kiro/skills/**/SKILL.md"
+  ]
+}

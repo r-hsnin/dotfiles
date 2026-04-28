@@ -1,0 +1,20 @@
+{
+  "name": "TypeScript + Vite",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/sshd:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/aws-cli:1": {}
+  },
+  "updateContentCommand": "bun install",
+  "postStartCommand": "lefthook install || true",
+  "forwardPorts": [5173],
+  "remoteUser": "vscode",
+  "containerEnv": {
+    "COLORTERM": "truecolor",
+    "EDITOR": "micro"
+  }
+}

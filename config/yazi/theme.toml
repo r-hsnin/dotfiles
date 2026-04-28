@@ -1,0 +1,27 @@
+# Yazi テーマ設定 (Tokyo Night風)
+
+[mgr]
+cwd = { fg = "#7aa2f7" }
+border_style = { fg = "#565f89" }
+find_keyword = { fg = "#c0caf5", bg = "#33467c", bold = true }
+marker_selected = { fg = "#9ece6a", bg = "#9ece6a" }
+marker_copied = { fg = "#e0af68", bg = "#e0af68" }
+marker_cut = { fg = "#f7768e", bg = "#f7768e" }
+
+[status]
+perm_read = { fg = "#9ece6a" }
+perm_write = { fg = "#e0af68" }
+perm_exec = { fg = "#f7768e" }
+perm_sep = { fg = "#565f89" }
+
+[filetype]
+rules = [
+    { mime = "image/*", fg = "#e0af68" },
+    { mime = "video/*", fg = "#bb9af7" },
+    { mime = "audio/*", fg = "#bb9af7" },
+    { mime = "application/zip", fg = "#f7768e" },
+    { mime = "application/gzip", fg = "#f7768e" },
+    { mime = "application/x-tar", fg = "#f7768e" },
+    { mime = "text/*", fg = "#9ece6a" },
+    { url = "*/", fg = "#7aa2f7" }
+]

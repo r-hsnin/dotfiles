@@ -1,0 +1,133 @@
+{
+  "name": "developer",
+  "description": "メイン開発用。全ツール利用可、hooks・MCP統合",
+  "prompt": "file://./developer.prompt.md",
+  "tools": [
+    "*"
+  ],
+  "includeMcpJson": true,
+  "allowedTools": [
+    "@builtin",
+    "@context7"
+  ],
+  "toolsSettings": {
+    "write": {
+      "allowedPaths": [
+        "src/**",
+        "lib/**",
+        "app/**",
+        "components/**",
+        "pages/**",
+        "tests/**",
+        "test/**",
+        "__tests__/**",
+        "docs/**",
+        "*.md",
+        "*.json",
+        "*.yaml",
+        "*.yml",
+        "*.toml",
+        "*.ts",
+        "*.tsx",
+        "*.js",
+        "*.jsx",
+        "*.py",
+        "*.cfg",
+        "*.ini",
+        ".kiro/**"
+      ],
+      "deniedPaths": [
+        ".env",
+        ".env.*",
+        "**/*.pem",
+        "**/*.key"
+      ]
+    },
+    "shell": {
+      "autoAllowReadonly": true,
+      "deniedCommands": [
+        "rm -rf .*"
+      ]
+    },
+    "aws": {
+      "autoAllowReadonly": true
+    }
+  },
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "file://~/.kiro/steering/**/*.md",
+    "file://README.md",
+    "file://AGENTS.md",
+    "skill://.kiro/skills/**/SKILL.md",
+    "skill://~/.kiro/skills/**/SKILL.md"
+  ],
+  "hooks": {
+    "agentSpawn": [
+      {
+        "command": "bash ~/.kiro/hooks/agent-context.sh",
+        "description": "Collect project context (git status, branch, recent commits)"
+      },
+      {
+        "command": "bash ~/.kiro/hooks/agent-tools.sh",
+        "description": "Available tools and usage rules for this environment"
+      },
+      {
+        "command": "bash /home/user/.agent-quest/hooks/notify.sh",
+        "description": "agent-quest: send events for RPG visualization"
+      }
+    ],
+    "preToolUse": [
+      {
+        "matcher": "shell",
+        "command": "bash ~/.kiro/hooks/pre-bash-guard.sh",
+        "description": "Block --no-verify, remind before git push"
+      },
+      {
+        "matcher": "shell",
+        "command": "bash ~/.kiro/hooks/pre-prefer-bun.sh",
+        "description": "Suggest bun instead of npm/npx/yarn/pnpm"
+      },
+      {
+        "matcher": "shell",
+        "command": "bash ~/.kiro/hooks/pre-prefer-uv.sh",
+        "description": "Suggest uv instead of pip/python"
+      },
+      {
+        "matcher": "shell",
+        "command": "bash ~/.kiro/hooks/pre-shell-redirect.sh",
+        "description": "Redirect PowerShell/cmd to correct path"
+      },
+      {
+        "command": "bash /home/user/.agent-quest/hooks/notify.sh",
+        "description": "agent-quest: send events for RPG visualization",
+        "matcher": "*"
+      }
+    ],
+    "postToolUse": [
+      {
+        "matcher": "write",
+        "command": "bash ~/.kiro/hooks/post-edit-check.sh"
+      },
+      {
+        "command": "bash /home/user/.agent-quest/hooks/notify.sh",
+        "description": "agent-quest: send events for RPG visualization",
+        "matcher": "*"
+      }
+    ],
+    "stop": [
+      {
+        "command": "bash ~/.kiro/hooks/check-console-log.sh"
+      },
+      {
+        "command": "bash /home/user/.agent-quest/hooks/notify.sh",
+        "description": "agent-quest: send events for RPG visualization"
+      }
+    ],
+    "userPromptSubmit": [
+      {
+        "command": "bash /home/user/.agent-quest/hooks/notify.sh",
+        "description": "agent-quest: send events for RPG visualization"
+      }
+    ]
+  }
+}

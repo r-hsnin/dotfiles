@@ -1,0 +1,44 @@
+# === Secrets / Credentials ===
+*.secret
+*.pem
+*.key
+*.p12
+.env
+.env.*
+credentials
+
+# === AWS ===
+.aws/
+
+# === SSH / GPG ===
+.ssh/
+.gnupg/
+
+# === AI tool auth ===
+.claude.json
+.gemini/
+.codex/
+.copilot/
+.codeium/
+
+# === Shell history ===
+.bash_history
+.zsh_history
+.node_repl_history
+.python_history
+
+# === Kiro CLI runtime ===
+kiro/sessions/
+kiro/.cli_bash_history*
+kiro/learned/
+kiro/docs/
+kiro/prompts/
+
+# === OS ===
+.DS_Store
+Thumbs.db
+
+# === Editor ===
+*.swp
+*.swo
+*~

@@ -1,0 +1,30 @@
+{
+  "name": "tdd-guide",
+  "description": "TDD ガイド専用。テスト設計・カバレッジ分析・TDD ワークフローの助言を行う",
+  "prompt": "file://./tdd-guide.prompt.md",
+  "tools": [
+    "read",
+    "grep",
+    "glob",
+    "shell"
+  ],
+  "allowedTools": [
+    "read",
+    "grep",
+    "glob"
+  ],
+  "toolsSettings": {
+    "shell": {
+      "autoAllowReadonly": true,
+      "denyByDefault": true
+    }
+  },
+  "resources": [
+    "file://.kiro/steering/**/*.md",
+    "file://~/.kiro/steering/**/*.md",
+    "file://README.md",
+    "file://AGENTS.md",
+    "skill://.kiro/skills/**/SKILL.md",
+    "skill://~/.kiro/skills/**/SKILL.md"
+  ]
+}

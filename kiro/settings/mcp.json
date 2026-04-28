@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "context7": {
+      "command": "bunx",
+      "args": ["@upstash/context7-mcp"],
+      "autoApprove": ["resolve-library-id", "get-library-docs"]
+    },
+    "playwright": {
+      "command": "bunx",
+      "args": ["@playwright/mcp"]
+    }
+  }
+}
